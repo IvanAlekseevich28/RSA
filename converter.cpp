@@ -86,10 +86,10 @@ string block_to_string(const cpp_int& block)
 }
 }
 
-static cpp_int chars_to_block(const char cstr[CSTR_BLOCK_LEN])
+static cpp_int chars_to_block(const char cstr[])
 {
     cpp_int block(0);
-    for (unsigned i = 0; i < CSTR_BLOCK_LEN; i++)
+    for (unsigned i = 0; cstr[i] != '\0'; i++)
         block += (cpp_int)cstr[i] << (i * 8);
 
     return block;

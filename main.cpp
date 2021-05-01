@@ -137,9 +137,10 @@ std::string decrypt_CBC(const vector<cpp_int>& crp_blocks, const s_key& key)
     for (const auto& cb : crp_blocks)
     {
         auto open_block = decrypt_block(cb, key.open.n, key.key, crp_block);
+        auto str = converter::block_to_string(open_block);
         crp_block = cb;
 
-        mes += converter::block_to_string(open_block);
+        mes += str;
     }
 
     return mes;
@@ -155,8 +156,8 @@ int main(int argc, char* argv[])
         return 1;
     }
     string mes = argv[1];
-    cout << "Programm works in demo mode."
-         << "Generation of keys... It takes around 1 minute.\n";
+    cout << "Programm works in demo mode. "
+         << "Generating of keys... It takes around 1 minute.\n";
 
     auto key = key_gen();
 
