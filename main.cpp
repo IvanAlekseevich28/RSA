@@ -147,15 +147,24 @@ std::string decrypt_CBC(const vector<cpp_int>& crp_blocks, const s_key& key)
 
 int main(int argc, char* argv[])
 {
+    if (argc != 2)
+    {
+        cerr << "Uncorrect count of args!\n"
+             << "This is demo version!\n";
 
-    string mes("The general advice is this: Don't invent a new cryptosystem if you actually care about security; or if you must, at least get it publicly peer reviewed by serious cryptography researchers. \nThat said, the best I've got is that this sounds like you're treating RSA as a kind of block cipher, and so you probably want to use a standard block cipher mode. The obvious thing to do, of just encrypting each block separately with the same key, sounds equivalent to Electronic Code-Book (ECB) mode, which is not secure. Perhaps you can use one of the better modes like CBC with RSA?");
-//    string mes("Don't invent a new cryptosystem if you actually care about security");
+        return 1;
+    }
+    string mes = argv[1];
+    cout << "Programm works in demo mode."
+         << "Generation of keys... It takes around 1 minute.\n";
+
     auto key = key_gen();
 
     cout << key;
 
     auto crp = encrypt_CBC(mes, key.open);
     auto decrp = decrypt_CBC(crp, key);
+    cout << "Crypt:\n" << crp << endl;
     cout << "Message:\n" << decrp << endl;
 
     return 0;
