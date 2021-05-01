@@ -72,18 +72,7 @@ cpp_int str64_to_cpp_int(const string& str)
     return block;
 }
 
-}
-
-static cpp_int chars_to_block(const char cstr[CSTR_BLOCK_LEN])
-{
-    cpp_int block(0);
-    for (unsigned i = 0; i < CSTR_BLOCK_LEN; i++)
-        block += (cpp_int)cstr[i] << (i * 8);
-
-    return block;
-}
-
-static string block_to_string(const cpp_int& block)
+string block_to_string(const cpp_int& block)
 {
     string str;
     auto b = block;
@@ -95,6 +84,18 @@ static string block_to_string(const cpp_int& block)
 
     return str;
 }
+}
+
+static cpp_int chars_to_block(const char cstr[CSTR_BLOCK_LEN])
+{
+    cpp_int block(0);
+    for (unsigned i = 0; i < CSTR_BLOCK_LEN; i++)
+        block += (cpp_int)cstr[i] << (i * 8);
+
+    return block;
+}
+
+
 
 ostream& operator<<(ostream& os, const vector<cpp_int>& blocks)
 {
