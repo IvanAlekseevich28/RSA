@@ -14,7 +14,7 @@ using namespace boost::multiprecision;
 auto findE(const cpp_int& n)
 {
     cpp_int e;
-    for ( unsigned i = 0; i < max_prime; i++ )
+    for ( unsigned i = 1; i < max_prime; i++ )
     {
         e = prime(i);
         if (gcd(e, n) == 1 )
@@ -48,6 +48,7 @@ cpp_int decrypt_block(const cpp_int& crp, cpp_int open_key, cpp_int key, cpp_int
 }
 
 
+
 int main()
 {
     string mes("The general advice is this: Don't invent a new cryptosystem if you actually care about security; or if you must, at least get it publicly peer reviewed by serious cryptography researchers.");
@@ -61,9 +62,9 @@ int main()
     auto d = findD(e, N);
 
 
-    cout << "openkey:\n" << n << "\n"
+    cout << "openkey:\n" << converter::cpp_int_to_str64(n) << "\n"
          << "e: " << e << "\n"
-         << "privatekey:\n" << d << "\n";
+         << "privatekey:\n" << converter::cpp_int_to_str64(d) << "\n";
 
     auto crp = encrypt_block(open_blocks[0], n, e);
     auto decrp = decrypt_block(crp, n, d);

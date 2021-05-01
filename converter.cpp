@@ -6,6 +6,8 @@ using namespace std;
 static cpp_int chars_to_block(const char cstr[]);
 static string block_to_string(const cpp_int& block);
 
+static const string alf = "+/0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
+
 namespace converter
 {
 vector<cpp_int> string_to_blocks(const string& message)
@@ -42,6 +44,32 @@ string blocks_to_string(const vector<cpp_int>& blocks)
         str += block_to_string(b);
 
     return str;
+}
+
+string cpp_int_to_str64(const cpp_int& key)
+{
+    string str64;
+    auto b = key;
+    for (unsigned i = 0; i < CSTR_BLOCK_LEN; i++)
+    {
+        str64.push_back(alf[static_cast<int>(b % cpp_int(64))]);
+        b >>= 8;
+    }
+
+    return str64;
+}
+
+cpp_int str64_to_cpp_int(const string& str)
+{
+    cpp_int block(0);
+    for (unsigned i = 0; i < str.size(); i++)
+    {
+        auto pos = alf.find(str[i]);
+        if (pos == -1) pos = 0;
+        block += (cpp_int)alf[pos] << (i * 6);
+    }
+
+    return block;
 }
 
 }
