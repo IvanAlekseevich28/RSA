@@ -12,7 +12,6 @@ SOURCES += \
         prime.cpp
 
 HEADERS += \
-    capacity_transformer.h \
     common.h \
     converter.h \
     prime.h

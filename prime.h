@@ -17,7 +17,7 @@ class prime
 public:
     prime();
     boost::multiprecision::cpp_int operator()();
-
+    boost::multiprecision::cpp_int random();
 ///*private*/:
     void thread_search_prime();
 
